@@ -1,32 +1,33 @@
 <template>
-    
-          <div>
-              <p>List 1</p>
-            <div class="squares_container" v-for="(item,index) in colors" :key="index"> 
-              <div v-for="num of item.count" 
-              :key="num" class="square" 
-              :style="{ background: item.color}"
-              v-if="item.checked"
-              @click="squareDecrement(index)"
-              ></div>
-            </div>
-
-          </div>
-            
-        
+  <div class="v-view-list">
+    <div class="v-view-list__list">List {{ idx + 1 }}</div>
+    <div class="squares_container" v-for="(item, index) in array" :key="index">
+      <div v-if="item.checked" class="flex">
+        <div
+          v-for="num of item.count"
+          :key="num"
+          class="square"
+          :style="{ background: item.color }"
+          @click="squareDecrement(index)"
+        ></div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
 export default {
-props: ['colors'],
-methods: {
+  props: ["array", "idx"],
+  methods: {
     squareDecrement(index) {
-        this.$store.commit('squareDecrement', index)
-    }
-},
-}
+      this.$store.commit("squareDecrement", {
+        idx: this.idx,
+        index: index,
+      });
+    },
+  },
+};
 </script>
 
 <style>
-
 </style>
